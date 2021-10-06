@@ -5,6 +5,9 @@ class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
+    this.path = {
+      test:"/test"
+    }
 
     this.middlewares();
     this.routes();
@@ -19,29 +22,8 @@ class Server {
   }
 
   routes() {
-    this.app.get('/api', (req, res) => {
-      res.send({
-        msg: 'get API',
-      });
-    });
+    this.app.use(this.path.test, require("../routes/test"))
 
-    this.app.post('/api', (req, res) => {
-      res.send({
-        msg: 'POST API',
-      });
-    });
-
-    this.app.put('/api', (req, res) => {
-      res.send({
-        msg: 'Put API',
-      });
-    });
-
-    this.app.delete('/api', (req, res) => {
-      res.send({
-        msg: 'Delete API',
-      });
-    });
   }
 
   listen() {
